@@ -1,0 +1,14 @@
+# Common
+Theme			: 0xdf3845
+Background		: 0xf8f5f5
+Border			: 0xededed
+Shadow			: 0xdddddd
+
+# Browse Jobs
+LeftOverlay		: 0xe75057
+RightOverlay	: 0x179a38
+
+# Color palette
+Green			: 0x179a38
+Red             : 0xe75057
+Salmon			: 0xdf3845
