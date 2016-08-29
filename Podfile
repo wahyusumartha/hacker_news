@@ -45,10 +45,10 @@ def testing_pods
     # Pods for testing
 end
 
-target 'Boilerplate' do
+target 'HackerNews' do
     shared_pods
 end
 
-target 'Boilerplate Development' do
+target 'HackerNews Development' do
     shared_pods
 end

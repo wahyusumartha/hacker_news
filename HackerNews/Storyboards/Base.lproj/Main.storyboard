@@ -25,7 +25,7 @@
         <!--Top Stories-->
         <scene sceneID="nVX-9N-7j9">
             <objects>
-                <viewController title="Top Stories" id="rAd-E9-VtA" customClass="TopStoriesViewController" customModule="Boilerplate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Top Stories" id="rAd-E9-VtA" customClass="TopStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QjV-Ul-OgT"/>
                         <viewControllerLayoutGuide type="bottom" id="UA8-SS-Y0a"/>
@@ -101,7 +101,7 @@
         <!--Story View View Controller-->
         <scene sceneID="Gcz-HP-qwh">
             <objects>
-                <viewController storyboardIdentifier="StoryViewViewController" id="2m6-iw-foR" customClass="StoryViewViewController" customModule="Boilerplate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryViewViewController" id="2m6-iw-foR" customClass="StoryViewViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gqp-yT-7EK"/>
                         <viewControllerLayoutGuide type="bottom" id="lEB-Ze-Pg2"/>
@@ -138,7 +138,7 @@
         <!--New Stories-->
         <scene sceneID="WmL-uc-05v">
             <objects>
-                <viewController title="New Stories" id="JHh-Cw-w1s" customClass="NewStoriesViewController" customModule="Boilerplate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New Stories" id="JHh-Cw-w1s" customClass="NewStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vH3-9y-rm3"/>
                         <viewControllerLayoutGuide type="bottom" id="xhe-3N-0W7"/>
