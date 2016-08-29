@@ -4,40 +4,24 @@ use_frameworks!
 
 def shared_pods
 
-    pod 'Alamofire'
-    pod 'Moya/RxSwift'
-    pod 'ObjectMapper'
-    pod 'Moya-ObjectMapper/RxSwift'
+#    pod 'Alamofire'
+#    pod 'Moya/RxSwift'
+#    pod 'ObjectMapper'
+#    pod 'Moya-ObjectMapper/RxSwift'
 
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'RxDataSources'
 
-    pod 'RealmSwift'
-    pod 'RxRealm'
+#    pod 'RealmSwift'
+#    pod 'RxRealm'
 
-#    pod 'FBSDKCoreKit'
-#    pod 'FBSDKLoginKit'
-#    pod 'FBSDKShareKit'
-#    pod 'Google/SignIn'
+#    pod 'Preheat'
 
-#    pod 'Kingfisher'
-#    pod 'HanekeSwift'
-    pod 'Preheat'
+#    pod 'DZNEmptyDataSet'
+#    pod 'Whisper'
 
-#    pod 'Firebase'
-
-#    pod 'Cartography'
-#    pod 'Eureka'
-#    pod 'SlideMenuControllerSwift'
-    pod 'DZNEmptyDataSet'
-    pod 'Whisper'
-#    pod 'BWWalkthrough'
-    pod 'PullToRefreshSwift'
-
-#    pod 'AssistantKit'
-#    pod 'SwiftDate'
-
-#    pod 'LoremIpsum'
+#    pod 'PullToRefreshSwift'
 
 end
 

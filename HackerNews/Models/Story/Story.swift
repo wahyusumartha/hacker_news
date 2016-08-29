@@ -11,8 +11,9 @@ import Foundation
 struct Story {
     let title: String
     let datetime: String
-    let urlAddress: String
     let previewImageAddress: String
+    let storyUrlAddress: String
+
 }
 
 // TODO:

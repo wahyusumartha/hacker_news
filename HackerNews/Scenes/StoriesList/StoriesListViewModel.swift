@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import RxSwift
 
 class StoriesListViewModel: ViewModelBaseClass {
-
+    var stories: Observable<[Story]>!
 }
