@@ -57,19 +57,19 @@
 		8D7986241D70081600977D6A /* StoriesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesListViewModel.swift; sourceTree = "<group>"; };
 		8D7986261D70089100977D6A /* StoryViewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewViewModel.swift; sourceTree = "<group>"; };
 		8D7986281D7008BD00977D6A /* StoryViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewViewController.swift; sourceTree = "<group>"; };
-		8D79862B1D700AA500977D6A /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		8D79862B1D700AA500977D6A /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Story.swift; path = ../../../HackerNews/Models/Story/Story.swift; sourceTree = "<group>"; };
 		8D79862D1D70209400977D6A /* TopStoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopStoriesViewController.swift; sourceTree = "<group>"; };
 		8D79862F1D7020B800977D6A /* NewStoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewStoriesViewController.swift; sourceTree = "<group>"; };
 		CE95B89C473949FAE2F3F218 /* Pods-Boilerplate Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Boilerplate Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-Boilerplate Development/Pods-Boilerplate Development.release.xcconfig"; sourceTree = "<group>"; };
 		EA687D7ACADA667D3FF17F35 /* Pods_Boilerplate_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Boilerplate_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7E176CC3BFC819137B0C78 /* Pods_Boilerplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Boilerplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF02E1291D38E4CB00B1B70F /* Boilerplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boilerplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF02E1291D38E4CB00B1B70F /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF03E61F1D3E2C6A0010ABDB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF03E6251D3E2C6A0010ABDB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF03E6281D3E2C6A0010ABDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF03E62E1D3E2C6A0010ABDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF03E6301D3E2C6A0010ABDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FF03E6481D3E2F990010ABDB /* Boilerplate Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Boilerplate Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF03E6481D3E2F990010ABDB /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF03E6581D3E31B20010ABDB /* Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Development-Info.plist"; sourceTree = "<group>"; };
 		FF61B35D1D3F1ACF0048B8A1 /* AppDelegate+Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Notification.swift"; sourceTree = "<group>"; };
 		FF841B3B1D3F2A10003D886C /* Colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 				8D79862B1D700AA500977D6A /* Story.swift */,
 			);
 			name = Story;
-			path = Boilerplate/Models/Story;
+			path = HackerNews/Models/Story;
 			sourceTree = SOURCE_ROOT;
 		};
 		EA973ACCF3A472A1A5810F26 /* Frameworks */ = {
@@ -167,7 +167,7 @@
 		FF02E1201D38E4CB00B1B70F = {
 			isa = PBXGroup;
 			children = (
-				FF02E12B1D38E4CB00B1B70F /* Boilerplate */,
+				FF02E12B1D38E4CB00B1B70F /* HackerNews */,
 				FF02E12A1D38E4CB00B1B70F /* Products */,
 				2F97C9985855275229A959AF /* Pods */,
 				EA973ACCF3A472A1A5810F26 /* Frameworks */,
@@ -177,13 +177,13 @@
 		FF02E12A1D38E4CB00B1B70F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FF02E1291D38E4CB00B1B70F /* Boilerplate.app */,
-				FF03E6481D3E2F990010ABDB /* Boilerplate Development.app */,
+				FF02E1291D38E4CB00B1B70F /* HackerNews.app */,
+				FF03E6481D3E2F990010ABDB /* HackerNews.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FF02E12B1D38E4CB00B1B70F /* Boilerplate */ = {
+		FF02E12B1D38E4CB00B1B70F /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
 				8D7986191D6FF2DF00977D6A /* AppCore */,
@@ -196,7 +196,7 @@
 				FF03E62A1D3E2C6A0010ABDB /* Scenes */,
 				FF03E62C1D3E2C6A0010ABDB /* Storyboards */,
 			);
-			path = Boilerplate;
+			path = HackerNews;
 			sourceTree = "<group>";
 		};
 		FF03E61D1D3E2C6A0010ABDB /* APIs */ = {
@@ -309,9 +309,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FF02E1281D38E4CB00B1B70F /* Boilerplate */ = {
+		FF02E1281D38E4CB00B1B70F /* HackerNews */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF02E13B1D38E4CB00B1B70F /* Build configuration list for PBXNativeTarget "Boilerplate" */;
+			buildConfigurationList = FF02E13B1D38E4CB00B1B70F /* Build configuration list for PBXNativeTarget "HackerNews" */;
 			buildPhases = (
 				F24A6CAAAC11E134A86EB5B1 /* [CP] Check Pods Manifest.lock */,
 				FF61B3601D3F1B620048B8A1 /* SwiftGen */,
@@ -325,14 +325,14 @@
 			);
 			dependencies = (
 			);
-			name = Boilerplate;
+			name = HackerNews;
 			productName = Boilerplate;
-			productReference = FF02E1291D38E4CB00B1B70F /* Boilerplate.app */;
+			productReference = FF02E1291D38E4CB00B1B70F /* HackerNews.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FF03E6371D3E2F990010ABDB /* Boilerplate Development */ = {
+		FF03E6371D3E2F990010ABDB /* HackerNews Development */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF03E6451D3E2F990010ABDB /* Build configuration list for PBXNativeTarget "Boilerplate Development" */;
+			buildConfigurationList = FF03E6451D3E2F990010ABDB /* Build configuration list for PBXNativeTarget "HackerNews Development" */;
 			buildPhases = (
 				FF03E6381D3E2F990010ABDB /* [CP] Check Pods Manifest.lock */,
 				FF61B3611D3F1BBD0048B8A1 /* SwiftGen */,
@@ -347,9 +347,9 @@
 			);
 			dependencies = (
 			);
-			name = "Boilerplate Development";
+			name = "HackerNews Development";
 			productName = Boilerplate;
-			productReference = FF03E6481D3E2F990010ABDB /* Boilerplate Development.app */;
+			productReference = FF03E6481D3E2F990010ABDB /* HackerNews.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -367,7 +367,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FF02E1241D38E4CB00B1B70F /* Build configuration list for PBXProject "Boilerplate" */;
+			buildConfigurationList = FF02E1241D38E4CB00B1B70F /* Build configuration list for PBXProject "HackerNews" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -380,8 +380,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF02E1281D38E4CB00B1B70F /* Boilerplate */,
-				FF03E6371D3E2F990010ABDB /* Boilerplate Development */,
+				FF02E1281D38E4CB00B1B70F /* HackerNews */,
+				FF03E6371D3E2F990010ABDB /* HackerNews Development */,
 			);
 		};
 /* End PBXProject section */
@@ -696,11 +696,11 @@
 			baseConfigurationReference = 0309D3524EEFB653563E4BF8 /* Pods-Boilerplate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/Boilerplate/Configurations/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/HackerNews/Configurations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.boilerplate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.hackernews;
+				PRODUCT_NAME = HackerNews;
 			};
 			name = Debug;
 		};
@@ -709,11 +709,11 @@
 			baseConfigurationReference = 33B68A85473DAFC0688D15AC /* Pods-Boilerplate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/Boilerplate/Configurations/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/HackerNews/Configurations/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.boilerplate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.hackernews;
+				PRODUCT_NAME = HackerNews;
 			};
 			name = Release;
 		};
@@ -726,7 +726,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.boilerplate.development;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerNews;
 			};
 			name = Debug;
 		};
@@ -739,14 +739,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.innovatube.boilerplate.development;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerNews;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FF02E1241D38E4CB00B1B70F /* Build configuration list for PBXProject "Boilerplate" */ = {
+		FF02E1241D38E4CB00B1B70F /* Build configuration list for PBXProject "HackerNews" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF02E1391D38E4CB00B1B70F /* Debug */,
@@ -755,7 +755,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF02E13B1D38E4CB00B1B70F /* Build configuration list for PBXNativeTarget "Boilerplate" */ = {
+		FF02E13B1D38E4CB00B1B70F /* Build configuration list for PBXNativeTarget "HackerNews" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF02E13C1D38E4CB00B1B70F /* Debug */,
@@ -764,7 +764,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF03E6451D3E2F990010ABDB /* Build configuration list for PBXNativeTarget "Boilerplate Development" */ = {
+		FF03E6451D3E2F990010ABDB /* Build configuration list for PBXNativeTarget "HackerNews Development" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF03E6461D3E2F990010ABDB /* Debug */,
