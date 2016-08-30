@@ -10,7 +10,7 @@ More details are described in the specification: [hackernews_viewer.pdf](http://
 <br/>
 ####Roadmap####
  * ~~Code's structure~~
-* Views (~~table view~~, ~~table cell~~, detail view)
+ * Views (~~table view~~, ~~table cell~~, detail view)
  * Networking
  * Caching
 <br/>
