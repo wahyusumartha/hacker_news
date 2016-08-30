@@ -9,7 +9,7 @@
         <scene sceneID="gFS-Fi-i7A">
             <objects>
                 <navigationController id="rE0-pU-hyp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Stories" id="xVS-KX-jjb"/>
+                    <tabBarItem key="tabBarItem" title="Top Stories" image="tabbar_top" id="xVS-KX-jjb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="br3-U4-uTt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,7 +25,7 @@
         <!--Top Stories-->
         <scene sceneID="nVX-9N-7j9">
             <objects>
-                <viewController title="Top Stories" id="rAd-E9-VtA" customClass="TopStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Top Stories" automaticallyAdjustsScrollViewInsets="NO" id="rAd-E9-VtA" customClass="TopStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QjV-Ul-OgT"/>
                         <viewControllerLayoutGuide type="bottom" id="UA8-SS-Y0a"/>
@@ -34,17 +34,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-AU-VgZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-AU-VgZ">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-hY-1Zj">
-                                <rect key="frame" x="43" y="124" width="150" height="30"/>
-                                <state key="normal" title="Go to Story View"/>
-                                <connections>
-                                    <action selector="dumpgotoStoryView:" destination="rAd-E9-VtA" eventType="touchUpInside" id="6kt-Hf-VGX"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -85,7 +78,7 @@
         <scene sceneID="rFL-7q-9l7">
             <objects>
                 <navigationController id="BGJ-0e-5MN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New Stories" id="DZ7-8e-ZVy"/>
+                    <tabBarItem key="tabBarItem" title="New Stories" image="tabbar_new" id="DZ7-8e-ZVy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OEF-D7-JHF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -138,7 +131,7 @@
         <!--New Stories-->
         <scene sceneID="WmL-uc-05v">
             <objects>
-                <viewController title="New Stories" id="JHh-Cw-w1s" customClass="NewStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New Stories" automaticallyAdjustsScrollViewInsets="NO" id="JHh-Cw-w1s" customClass="NewStoriesViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vH3-9y-rm3"/>
                         <viewControllerLayoutGuide type="bottom" id="xhe-3N-0W7"/>
@@ -147,17 +140,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FF5-xB-81C">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FF5-xB-81C">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-89-eOT">
-                                <rect key="frame" x="63" y="133" width="150" height="30"/>
-                                <state key="normal" title="Go to Story View"/>
-                                <connections>
-                                    <action selector="dumpgotoStoryView:" destination="JHh-Cw-w1s" eventType="touchUpInside" id="VmG-kN-rlk"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -177,4 +163,8 @@
             <point key="canvasLocation" x="1207" y="1482"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar_new" width="25" height="25"/>
+        <image name="tabbar_top" width="25" height="25"/>
+    </resources>
 </document>

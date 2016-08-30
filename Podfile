@@ -9,13 +9,14 @@ def shared_pods
 #    pod 'ObjectMapper'
 #    pod 'Moya-ObjectMapper/RxSwift'
 
-    pod 'RxSwift'
-    pod 'RxCocoa'
+    pod 'RxSwift', '~> 2.0'
+    pod 'RxCocoa', '~> 2.0'
     pod 'RxDataSources'
 
 #    pod 'RealmSwift'
 #    pod 'RxRealm'
 
+    pod 'Kingfisher'
 #    pod 'Preheat'
 
 #    pod 'DZNEmptyDataSet'

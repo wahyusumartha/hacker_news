@@ -8,11 +8,9 @@
 
 import Foundation
 
-let countPerPage = 10 // maximum 10 item each fetch
-
-typealias FeedFetchCompletionHandler = ([Story]?, Error?) -> Void
+typealias FeedFetchCompletionHandler = ([StoryProtocol]?, Error?) -> Void
 
 protocol FeedDataProviderProtocol {
-    func fetchLoad(startIndex: Int, completionHandler: FeedFetchCompletionHandler)
-    func fetchReload(completionHandler: FeedFetchCompletionHandler) // startIndex = 0
+    func fetchLoad(startIndex: Int, count: Int, completionHandler: FeedFetchCompletionHandler)
+    func fetchReload(count: Int, completionHandler: FeedFetchCompletionHandler) // startIndex = 0
 }

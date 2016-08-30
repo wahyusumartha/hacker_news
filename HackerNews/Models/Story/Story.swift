@@ -8,18 +8,21 @@
 
 import Foundation
 
-struct Story {
+struct Story: StoryProtocol {
     let title: String
-    let datetime: String
-    let previewImageAddress: String
-    let storyUrlAddress: String
+    let dateTime: String
+    let previewImageURLAddress: String
+    let storyContentURLAddress: String
 
+    var viewModel: StoryViewModel {
+        return StoryViewModel(storyData: self)
+    }
 }
 
 // TODO:
 // consider: should I write 'action' here?
 struct StoryAction {
-    func share(story: Story) {
+    func share(story: StoryProtocol) {
 
     }
 }

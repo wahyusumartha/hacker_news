@@ -40,11 +40,6 @@ class ViewModelBaseClass {
     func dismiss() {
         moveScreenDelegate?.viewModel(self, moveScreen: .Dismiss)
     }
-
-    // in subclass, we should have:
-    // properties list (RxSwift's Observable??????)
-    // actions list (RxSwift's Action???????)
-    // functions list (pure Swift function)
 }
 
 // for draft
