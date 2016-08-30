@@ -14,7 +14,6 @@
 		8D3AA2931D742A770052A933 /* FeedDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3AA2921D742A770052A933 /* FeedDataProviderProtocol.swift */; };
 		8D3AA2971D743D7F0052A933 /* StoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3AA2951D743D7F0052A933 /* StoryTableCell.swift */; };
 		8D3AA2981D743D7F0052A933 /* StoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D3AA2961D743D7F0052A933 /* StoryTableCell.xib */; };
-		8D3AA29A1D74481A0052A933 /* StoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3AA2991D74481A0052A933 /* StoryProtocol.swift */; };
 		8D60DF9F1D75276300444BFA /* StoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D60DF9E1D75276300444BFA /* StoryViewModel.swift */; };
 		8D7986231D70078A00977D6A /* StoriesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7986221D70078A00977D6A /* StoriesListViewController.swift */; };
 		8D7986251D70081600977D6A /* StoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7986241D70081600977D6A /* StoriesListViewModel.swift */; };
@@ -44,7 +43,6 @@
 		8D3AA2921D742A770052A933 /* FeedDataProviderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedDataProviderProtocol.swift; sourceTree = "<group>"; };
 		8D3AA2951D743D7F0052A933 /* StoryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableCell.swift; sourceTree = "<group>"; };
 		8D3AA2961D743D7F0052A933 /* StoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryTableCell.xib; sourceTree = "<group>"; };
-		8D3AA2991D74481A0052A933 /* StoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryProtocol.swift; sourceTree = "<group>"; };
 		8D60DF9E1D75276300444BFA /* StoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewModel.swift; sourceTree = "<group>"; };
 		8D7986221D70078A00977D6A /* StoriesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesListViewController.swift; sourceTree = "<group>"; };
 		8D7986241D70081600977D6A /* StoriesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoriesListViewModel.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			children = (
 				FF03E61F1D3E2C6A0010ABDB /* AppDelegate.swift */,
 				8D3AA28C1D742A400052A933 /* Error.swift */,
-				8D3AA2991D74481A0052A933 /* StoryProtocol.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -504,7 +501,6 @@
 				8D60DF9F1D75276300444BFA /* StoryViewModel.swift in Sources */,
 				8D7986301D7020B800977D6A /* NewStoriesViewController.swift in Sources */,
 				8D79862E1D70209400977D6A /* TopStoriesViewController.swift in Sources */,
-				8D3AA29A1D74481A0052A933 /* StoryProtocol.swift in Sources */,
 				8D3AA2931D742A770052A933 /* FeedDataProviderProtocol.swift in Sources */,
 				8D3AA28D1D742A400052A933 /* Error.swift in Sources */,
 				8D3AA2901D742A5A0052A933 /* ViewControllerMVVMBaseClass.swift in Sources */,

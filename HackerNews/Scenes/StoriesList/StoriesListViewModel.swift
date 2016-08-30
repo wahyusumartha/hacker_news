@@ -35,7 +35,7 @@ class StoriesListViewModel: ViewModelBaseClass {
 
     private let loadmoreInterval: NSTimeInterval = 3
 
-    private let backgroundScheduler = SerialDispatchQueueScheduler(globalConcurrentQueueQOS: .Default)
+    private let backgroundScheduler = ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default)
 
     private let disposeBag = DisposeBag()
     private var timerDisposeBag: DisposeBag?
@@ -84,30 +84,29 @@ class StoriesListViewModel: ViewModelBaseClass {
 
     private func startRepeatingLoadDataRequest() {
 
+        timerDisposeBag = DisposeBag()
         func stopTimer() {
             self.timerDisposeBag = nil
         }
-        timerDisposeBag = DisposeBag()
 
         // start timer
         let timer = Observable<Int>.interval(loadmoreInterval, scheduler: MainScheduler.instance)
 
         timer
-//            .subscribeOn(MainScheduler.instance)
-        .observeOn(backgroundScheduler)
-            .startWith(-1) // to start timer immediately
-        .flatMap { [weak self] _ -> Observable<[Story]> in
+            .observeOn(backgroundScheduler)
+            .startWith(-1)
+            .flatMap { [weak self] _ -> Observable<[Story]> in
 
-            let startIndex = (self?.lastLoadedIndex)! + 1
+                let startIndex = (self?.lastLoadedIndex)! + 1
 
-            if startIndex >= self?.allRemoteStoriesIds.value.count { // no more data, then stop timer
-                stopTimer()
-                return Observable.empty()
-            }
-            else { // load more
-                self?.lastLoadedIndex = (self?.lastLoadedIndex)! + (self?.countPerLoad)!
-                return self?.retrieveStoriesRequest(startIndex: startIndex, count: (self?.countPerLoad)!) ?? Observable.empty()
-            }
+                if startIndex >= self?.allRemoteStoriesIds.value.count { // no more data, then stop timer
+                    stopTimer()
+                    return Observable.empty()
+                }
+                else { // load more
+                    self?.lastLoadedIndex = (self?.lastLoadedIndex)! + (self?.countPerLoad)!
+                    return self?.retrieveStoriesRequest(startIndex: startIndex, count: (self?.countPerLoad)!) ?? Observable.empty()
+                }
         }
             .observeOn(MainScheduler.instance)
             .subscribeNext { [weak self] newStories in

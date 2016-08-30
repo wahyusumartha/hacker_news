@@ -8,6 +8,13 @@
 
 import Foundation
 
+protocol StoryProtocol {
+    var title: String { get }
+    var dateTime: String { get }
+    var previewImageURLAddress: String { get }
+    var storyContentURLAddress: String { get }
+}
+
 struct Story: StoryProtocol {
     let title: String
     let dateTime: String
