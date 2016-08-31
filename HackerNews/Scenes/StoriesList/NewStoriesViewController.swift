@@ -19,6 +19,11 @@ struct NewStoriesDataProvider {
 
 class NewStoriesViewController: StoriesListViewController {
 
+    override var debug_id: String // just for debug purpose
+    {
+        return "New"
+    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -27,6 +32,7 @@ class NewStoriesViewController: StoriesListViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+
     }
 
     override func didReceiveMemoryWarning() {

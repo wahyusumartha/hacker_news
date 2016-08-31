@@ -33,30 +33,32 @@ class StoriesListViewModel: ViewModelBaseClass {
     private let countPerLoad: Int! = 10
     private var lastLoadedIndex: Int! = -1
 
-    private let loadmoreInterval: NSTimeInterval = 3
+    private let loadmoreInterval: NSTimeInterval = 1.5 // load more every 1.5 seconds
 
     private let backgroundScheduler = ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default)
 
     private let disposeBag = DisposeBag()
     private var timerDisposeBag: DisposeBag?
 
-    override init() {
+    init(debug_id: String) {
         super.init()
-
+        self.debug_id = debug_id
+        print("init ViewModel debug id \(debug_id ?? "")")
         setup()
     }
 
     private func setup() {
-        // load the list of all stories ids first
-        retrieveAllRemoteStoriesIds()
+        // load the list of all stories, then bind it to allRemoteStoriesIds (Rx's Variable)
+        retrieveAllRemoteStoriesIds().debug("Debug")
             .subscribeOn(backgroundScheduler)
             .bindTo(allRemoteStoriesIds)
             .addDisposableTo(disposeBag)
 
         // after having the list of ids, start loading data
         allRemoteStoriesIds.asObservable()
-            .subscribeNext { [weak self] _ in
-                self?.startRepeatingLoadDataRequest()
+            .skip(1) // skip the 1st emtpy data from Rx's Variable
+        .subscribeNext { [weak self] _ in
+            self?.startRepeatingLoadDataRequest()
         }
             .addDisposableTo(disposeBag)
     }
@@ -82,40 +84,35 @@ class StoriesListViewModel: ViewModelBaseClass {
         }
     }
 
+// we want to load more stories data every `loadmoreInterval` time
     private func startRepeatingLoadDataRequest() {
-
-        timerDisposeBag = DisposeBag()
-        func stopTimer() {
-            self.timerDisposeBag = nil
-        }
+        print("==Start on \(self.debug_id) time")
+        print(NSDate())
 
         // start timer
         let timer = Observable<Int>.interval(loadmoreInterval, scheduler: MainScheduler.instance)
+            .takeWhile { x -> Bool in
+                self.lastLoadedIndex + 1 < self.allRemoteStoriesIds.value.count // still have something to load
+        }
 
         timer
-            .observeOn(backgroundScheduler)
-            .startWith(-1)
+//            .observeOn(backgroundScheduler)
+
+        // we want to start the 1st request immediately, so prepending (-1) into timer (Rx's Observable.interval)
+        .startWith(-1)
             .flatMap { [weak self] _ -> Observable<[Story]> in
-
                 let startIndex = (self?.lastLoadedIndex)! + 1
-
-                if startIndex >= self?.allRemoteStoriesIds.value.count { // no more data, then stop timer
-                    stopTimer()
-                    return Observable.empty()
-                }
-                else { // load more
-                    self?.lastLoadedIndex = (self?.lastLoadedIndex)! + (self?.countPerLoad)!
-                    return self?.retrieveStoriesRequest(startIndex: startIndex, count: (self?.countPerLoad)!) ?? Observable.empty()
-                }
+                self?.lastLoadedIndex = (self?.lastLoadedIndex)! + (self?.countPerLoad)!
+                return self?.retrieveStoriesRequest(startIndex: startIndex, count: (self?.countPerLoad)!) ?? Observable.empty()
         }
             .observeOn(MainScheduler.instance)
             .subscribeNext { [weak self] newStories in
                 self?.storiesData.value.appendContentsOf(newStories) // bind data to storiesData
         }
-            .addDisposableTo(timerDisposeBag!)
+            .addDisposableTo(disposeBag)
     }
 
-    // load stories data
+    // load stories data from `startIndex` and `count`
     private func retrieveStoriesRequest(startIndex startIndex: Int, count: Int) -> Observable<[Story]> {
         return Observable.create { observer in
             // TODO: call FeedDataProviderProtocol.fetchLoad(...) / Alamofire/ Moya

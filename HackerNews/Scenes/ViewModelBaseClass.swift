@@ -26,6 +26,9 @@ enum MoveScreenEvent {
 // ViewModelBaseClass
 
 class ViewModelBaseClass {
+
+    var debug_id: String? // just for debug purpose
+
     // utility: move screen
     private weak var moveScreenDelegate: MoveScreenDelegate?
     func pushTo(nextViewController: UIViewController) {

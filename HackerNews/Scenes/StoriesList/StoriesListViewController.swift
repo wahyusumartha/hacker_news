@@ -42,7 +42,7 @@ class StoriesListViewController: ViewControllerMVVMBaseClass {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mvvmViewModel = StoriesListViewModel()
+        mvvmViewModel = StoriesListViewModel(debug_id: self.debug_id)
         setupRxDataSource()
     }
 

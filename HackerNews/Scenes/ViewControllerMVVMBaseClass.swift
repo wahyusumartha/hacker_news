@@ -28,6 +28,13 @@ import UIKit
 
 class ViewControllerMVVMBaseClass: UIViewController {
 
+    var debug_id: String // just for debug purpose
+    {
+        get {
+            return "ViewControllerMVVMBaseClass"
+        }
+    }
+
     var mvvmViewModel: ViewModelBaseClass?
 
     init(viewModel: ViewModelBaseClass, nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
