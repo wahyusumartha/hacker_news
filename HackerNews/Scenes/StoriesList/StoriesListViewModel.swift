@@ -11,7 +11,7 @@ import RxSwift
 
 protocol StoriesListViewModelProtocol {
     func refreshWanted()
-    var stories: Observable<[Story]>! { get }
+    var stories: Observable<[StoryViewModel]>! { get }
 }
 
 class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
@@ -20,7 +20,7 @@ class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
     func refreshWanted() {
         refreshDataStream.onNext()
     }
-    var stories: Observable<[Story]>! {
+    var stories: Observable<[StoryViewModel]>! {
         return _stories.asObservable()
     }
 
@@ -40,7 +40,7 @@ class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
             .merge()
 
     }
-    private var _stories = Variable<[Story]>([])
+    private var _stories = Variable<[StoryViewModel]>([])
     private var disposeBag = DisposeBag()
 
     private func setup() {
@@ -51,14 +51,17 @@ class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
         }
 
         // get story one by one
-        let storiesDataRequestStream: Observable<Story> = allIdsRequestStream.flatMap { (ids) in
+        let storiesDataRequestStream: Observable<StoryViewModel> = allIdsRequestStream.flatMap { (ids) in
             ids.toObservable()
         }.flatMap { [unowned self] id in
             self.dummyStoryRequest(id)
-        }.takeUntil(refreshDataStream)
+        }.map({ (story) -> StoryViewModel in
+            story.viewModel
+        })
+            .takeUntil(refreshDataStream)
 
         // get a bunch of stories at a time, as we use `buffer`, we want to stop it when there no more stories to load
-        let bunchRequestStream: Observable<[Story]> = storiesDataRequestStream.buffer(timeSpan: 1.5, count: 10, scheduler: MainScheduler.instance)
+        let bunchRequestStream: Observable<[StoryViewModel]> = storiesDataRequestStream.buffer(timeSpan: 1.5, count: 10, scheduler: MainScheduler.instance)
             .takeWhile { (stories) -> Bool in
                 stories.count > 0
         }
@@ -69,13 +72,13 @@ class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
             .takeUntil(refreshDataStream)
 
         // build the loadmore stream
-        let loadmoreRequestStream: Observable<[Story]> = Observable.zip(bunchRequestStream, timer) { (stories, _) -> [Story] in
-            stories
+        let loadmoreRequestStream: Observable<[StoryViewModel]> = Observable.zip(bunchRequestStream, timer) { (storyVMs, _) -> [StoryViewModel] in
+            storyVMs
         }
 
         // subscribe and update the date to `_stories`
-        loadmoreRequestStream.subscribeNext { [unowned self](loadedMoreStories) in
-            self._stories.value.appendContentsOf(loadedMoreStories)
+        loadmoreRequestStream.subscribeNext { [unowned self](loadedMoreStorieVMs) in
+            self._stories.value.appendContentsOf(loadedMoreStorieVMs)
         }.addDisposableTo(disposeBag)
     }
 

@@ -17,8 +17,7 @@ struct SectionOfStory {
 }
 
 extension SectionOfStory: SectionModelType {
-//    typealias Item = StoryProtocol // TODO: why this fail?
-    typealias Item = Story
+    typealias Item = StoryViewModel
 
     init(original: SectionOfStory, items: [Item]) {
         self = original
@@ -30,7 +29,7 @@ extension SectionOfStory: SectionModelType {
 class StoriesListViewController: ViewControllerMVVMBaseClass {
 
     private let tableDataSourceLogic = RxTableViewSectionedReloadDataSource<SectionOfStory>()
-    private var sections: [SectionOfStory]! = []
+    private var sections = [SectionOfStory(items: [StoryViewModel]())] // start with empty data
     private let disposeBag = DisposeBag()
 
     @IBOutlet weak var tableView: UITableView!
@@ -74,40 +73,22 @@ extension StoriesListViewController { // RxDataSource
             cell.previewImageView.kf_setImageWithURL(NSURL(string: item.previewImageURLAddress)!, placeholderImage: UIImage(named: "image_preview_placeholder")) // lazy load using Kingfisher
 
             cell.titleLabel.text = item.title
-            cell.dateTimeLabel.text = item.dateTime
+            cell.dateTimeLabel.text = item.dateTimeFriendly
 
             return cell
         }
 
         // update data
         let viewModel = mvvmViewModel as! StoriesListViewModel
-        sections = [SectionOfStory(items: [Story]())] // start with empty data
-        viewModel.stories.asObservable()
-            .map { [unowned self](stories) -> [SectionOfStory] in
-                print(NSDate())
-                print("receive data, count \(stories.count)")
-                let origionalSection = self.sections[0]
-                self.sections[0] = SectionOfStory(original: origionalSection, items: stories)
-                return (self.sections)!
+        let updateSectionsStream = viewModel.stories.map { [unowned self](storyVMs) -> [SectionOfStory] in
+            print(NSDate())
+            print("receive data, count \(storyVMs.count)")
+            let origionalSection = self.sections[0]
+            self.sections[0] = SectionOfStory(original: origionalSection, items: storyVMs)
+            return self.sections
         }
-            .bindTo(tableView.rx_itemsWithDataSource(tableDataSourceLogic))
+        // bind data to tableview
+        updateSectionsStream.bindTo(tableView.rx_itemsWithDataSource(tableDataSourceLogic))
             .addDisposableTo(disposeBag)
-
     }
 }
-
-//extension StoriesListViewController: UITableViewDataSource, UITableViewDelegate {
-//
-//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
-//
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        return nil
-//    }
-//
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//
-//    }
-//
-//}
