@@ -42,7 +42,7 @@ class StoriesListViewController: ViewControllerMVVMBaseClass {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mvvmViewModel = StoriesListViewModel(debug_id: self.debug_id)
+        mvvmViewModel = StoriesListViewModel()
         setupRxDataSource()
     }
 
@@ -70,7 +70,6 @@ extension StoriesListViewController { // RxDataSource
         tableView.registerNib(UINib(nibName: "StoryTableCell", bundle: nil), forCellReuseIdentifier: "StoryTableCell")
         tableDataSourceLogic.configureCell = { (dataSource, tableView, indexPath, item) in
             let cell = tableView.dequeueReusableCellWithIdentifier("StoryTableCell", forIndexPath: indexPath) as! StoryTableCell
-            print("show cell")
 
             cell.previewImageView.kf_setImageWithURL(NSURL(string: item.previewImageURLAddress)!, placeholderImage: UIImage(named: "image_preview_placeholder")) // lazy load using Kingfisher
 
@@ -83,16 +82,17 @@ extension StoriesListViewController { // RxDataSource
         // update data
         let viewModel = mvvmViewModel as! StoriesListViewModel
         sections = [SectionOfStory(items: [Story]())] // start with empty data
-        viewModel.storiesData.asObservable()
-            .map { [weak self] stories -> [SectionOfStory] in
-                print("data ok")
-                print("count: \(stories.count)")
-                let origionalSection = self?.sections[0]
-                self?.sections[0] = SectionOfStory(original: origionalSection!, items: stories)
-                return (self?.sections)!
+        viewModel.stories.asObservable()
+            .map { [unowned self](stories) -> [SectionOfStory] in
+                print(NSDate())
+                print("receive data, count \(stories.count)")
+                let origionalSection = self.sections[0]
+                self.sections[0] = SectionOfStory(original: origionalSection, items: stories)
+                return (self.sections)!
         }
             .bindTo(tableView.rx_itemsWithDataSource(tableDataSourceLogic))
             .addDisposableTo(disposeBag)
+
     }
 }
 

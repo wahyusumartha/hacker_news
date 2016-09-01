@@ -1,140 +1,117 @@
 //
-//  StoriesListViewModel.swift
-//  Boilerplate
+//  StoriesListViewModel_new.swift
+//  HackerNews
 //
-//  Created by Viet Nguyen Tran on 8/26/16.
+//  Created by Viet Nguyen Tran on 9/1/16.
 //  Copyright © 2016 Innovatube. All rights reserved.
 //
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 protocol StoriesListViewModelProtocol {
-    var numberOfStories: Int { get }
-    func storyDataViewModelAtIndexPath(indexPath: NSIndexPath) -> StoryViewModel
+    func refreshWanted()
+    var stories: Observable<[Story]>! { get }
 }
 
-class StoriesListViewModel: ViewModelBaseClass {
+class StoriesListViewModel: ViewModelBaseClass, StoriesListViewModelProtocol {
 
-//    // public: data source
-//    var numberOfStories: Int {
-//        return storiesData.value.count
-//    }
-//    func storyDataViewModelAtIndexPath(indexPath: NSIndexPath) -> StoryViewModel {
-//        return storiesData.value[indexPath.row].viewModel
-//    }
-
-    // For Observing
-    var storiesData = Variable<[Story]>([])
-
-    // Internal Data
-    private var allRemoteStoriesIds = Variable<[Int]>([])
-    private let countPerLoad: Int! = 10
-    private var lastLoadedIndex: Int! = -1
-
-    private let loadmoreInterval: NSTimeInterval = 1.5 // load more every 1.5 seconds
-
-    private let backgroundScheduler = ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Default)
-
-    private let disposeBag = DisposeBag()
-    private var timerDisposeBag: DisposeBag?
-
-    init(debug_id: String) {
-        super.init()
-        self.debug_id = debug_id
-        print("init ViewModel debug id \(debug_id ?? "")")
-        setup()
+    // MARK: Public
+    func refreshWanted() {
+        refreshDataStream.onNext()
     }
+    var stories: Observable<[Story]>! {
+        return _stories.asObservable()
+    }
+
+    override init() {
+        super.init()
+
+        setup() // initial setup
+
+        loadDataAtBeginingStream.onNext() // load data on starting
+    }
+
+    // MARK: Private
+    private var loadDataAtBeginingStream = PublishSubject<Void>()
+    private var refreshDataStream = PublishSubject<Void>()
+    private var reloadDataStream: Observable<Void> {
+        return Observable.of(loadDataAtBeginingStream, refreshDataStream)
+            .merge()
+
+    }
+    private var _stories = Variable<[Story]>([])
+    private var disposeBag = DisposeBag()
 
     private func setup() {
-        // load the list of all stories, then bind it to allRemoteStoriesIds (Rx's Variable)
-        retrieveAllRemoteStoriesIds().debug("Debug")
-            .subscribeOn(backgroundScheduler)
-            .bindTo(allRemoteStoriesIds)
-            .addDisposableTo(disposeBag)
 
-        // after having the list of ids, start loading data
-        allRemoteStoriesIds.asObservable()
-            .skip(1) // skip the 1st emtpy data from Rx's Variable
-        .subscribeNext { [weak self] _ in
-            self?.startRepeatingLoadDataRequest()
+        // reload data begin with `get all ids` first
+        let allIdsRequestStream: Observable<[Int]> = reloadDataStream.flatMap { [unowned self] in
+            self.dummyAllIdsRequest()
         }
-            .addDisposableTo(disposeBag)
+
+        // get story one by one
+        let storiesDataRequestStream: Observable<Story> = allIdsRequestStream.flatMap { (ids) in
+            ids.toObservable()
+        }.flatMap { [unowned self] id in
+            self.dummyStoryRequest(id)
+        }.takeUntil(refreshDataStream)
+
+        // get a bunch of stories at a time, as we use `buffer`, we want to stop it when there no more stories to load
+        let bunchRequestStream: Observable<[Story]> = storiesDataRequestStream.buffer(timeSpan: 1.5, count: 10, scheduler: MainScheduler.instance)
+            .takeWhile { (stories) -> Bool in
+                stories.count > 0
+        }
+
+        // need a timer to run `bunchRequestStream`
+        let timer: Observable<Int> = Observable<Int>.interval(1.5, scheduler: MainScheduler.instance)
+            .startWith(-1)
+            .takeUntil(refreshDataStream)
+
+        // build the loadmore stream
+        let loadmoreRequestStream: Observable<[Story]> = Observable.zip(bunchRequestStream, timer) { (stories, _) -> [Story] in
+            stories
+        }
+
+        // subscribe and update the date to `_stories`
+        loadmoreRequestStream.subscribeNext { [unowned self](loadedMoreStories) in
+            self._stories.value.appendContentsOf(loadedMoreStories)
+        }.addDisposableTo(disposeBag)
     }
 
-    // load all stories ids
-    private func retrieveAllRemoteStoriesIds() -> Observable<[Int]> {
+    // MARK: dummy data
+    private func dummyAllIdsRequest() -> Observable<[Int]> {
         return Observable.create { observer in
-
-            // TODO: make request by FeedDataProvider / Alamofire / Moya
-
-            // dummy data
-            var dummy = [Int]()
-            for index in 0..<100 {
-                dummy.append(index)
-            }
-
-            // emit (RxSwift)
-            observer.onNext(dummy)
-            observer.onCompleted()
-            return AnonymousDisposable {
-                // TODO: cancel request
-            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // dummy data
+                var dummy = [Int]()
+                for index in 0..<100 {
+                    dummy.append(index)
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    // emit (RxSwift)
+                    observer.onNext(dummy)
+                    observer.onCompleted()
+                })
+            })
+            return NopDisposable.instance
         }
     }
-
-// we want to load more stories data every `loadmoreInterval` time
-    private func startRepeatingLoadDataRequest() {
-        print("==Start on \(self.debug_id) time")
-        print(NSDate())
-
-        // start timer
-        let timer = Observable<Int>.interval(loadmoreInterval, scheduler: MainScheduler.instance)
-            .takeWhile { x -> Bool in
-                self.lastLoadedIndex + 1 < self.allRemoteStoriesIds.value.count // still have something to load
-        }
-
-        timer
-//            .observeOn(backgroundScheduler)
-
-        // we want to start the 1st request immediately, so prepending (-1) into timer (Rx's Observable.interval)
-        .startWith(-1)
-            .flatMap { [weak self] _ -> Observable<[Story]> in
-                let startIndex = (self?.lastLoadedIndex)! + 1
-                self?.lastLoadedIndex = (self?.lastLoadedIndex)! + (self?.countPerLoad)!
-                return self?.retrieveStoriesRequest(startIndex: startIndex, count: (self?.countPerLoad)!) ?? Observable.empty()
-        }
-            .observeOn(MainScheduler.instance)
-            .subscribeNext { [weak self] newStories in
-                self?.storiesData.value.appendContentsOf(newStories) // bind data to storiesData
-        }
-            .addDisposableTo(disposeBag)
-    }
-
-    // load stories data from `startIndex` and `count`
-    private func retrieveStoriesRequest(startIndex startIndex: Int, count: Int) -> Observable<[Story]> {
-        return Observable.create { observer in
-            // TODO: call FeedDataProviderProtocol.fetchLoad(...) / Alamofire/ Moya
-
-            // dummy data
-            var dummy = [Story]()
-            for index in startIndex...(startIndex + count - 1) {
-                let story = Story(title: "Title \(index)",
+    private func dummyStoryRequest(storyId: Int) -> Observable<Story> {
+        return Observable.create({ (observer) -> Disposable in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // dummy data
+                let story = Story(title: "Title \(storyId)",
                     dateTime: "Jan20,2017",
                     previewImageURLAddress: "http://www.public.asu.edu/~camartin/plants/Plant%20html%20files/Cosmos%20magenta.JPG",
-                    storyContentURLAddress: "http://google.com")
-                dummy.append(story)
-            }
-
-            // emit (RxSwift)
-            observer.onNext(dummy)
-            observer.onCompleted()
-            return AnonymousDisposable {
-                // TODO: cancelRequest
-            }
-        }
+                    storyContentURLAddress: "https://github.com/DTVD/The-introduction-to-RxSwift-you-have-been-missing")
+                dispatch_async(dispatch_get_main_queue(), {
+                    // emit (RxSwift)
+                    observer.onNext(story)
+                    observer.onCompleted()
+                })
+            })
+            return NopDisposable.instance
+        })
     }
-
 }
-
